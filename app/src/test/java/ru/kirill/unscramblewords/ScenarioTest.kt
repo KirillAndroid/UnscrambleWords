@@ -5,6 +5,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
 
@@ -14,15 +15,20 @@ class ScenarioTest {
     @get:Rule
     val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
-    @Test
-    fun testCase1() {
-        var gamePage = gamePage(
+    private lateinit var gamePage = GamePage()
+
+    @Before
+    fun init() {
+        gamePage = gamePage(
             unscrambleWord = "htacw"
         )
+    }
 
+    @Test
+    fun testCase1() {
         gamePage.checkInitialState()
 
-        gamePage.input()
+        gamePage.input("watch")
         gamePage.checkInputVariantState()
 
         gamePage.clickCheckButton()
@@ -39,19 +45,16 @@ class ScenarioTest {
 
     @Test
     fun testCase2() {
-        val gamePage = gamePage(
-            unscrambleWord = "htacw"
-        )
 
         gamePage.checkInitialState()
 
-        gamePage.input()
+        gamePage.input("wacth")
         gamePage.checkInputVariantState()
 
         gamePage.clickCheckButton()
         gamePage.checkIncorrectState()
 
-        gamePage.input()
+        gamePage.input("watch")
         gamePage.checkCorrectState()
 
         gamePage.clickNext()
@@ -65,33 +68,24 @@ class ScenarioTest {
 
     @Test
     fun testCase3() {
-        val gamePage = gamePage(
-            unscrambleWord = "htacw"
-        )
 
         gamePage.checkInitialState()
 
-        gamePage.input() // input < char then right answer
+        gamePage.input("wat") // input < char then right answer
         gamePage.checkInputVariantState() // check Is unavailable
     }
 
     @Test
     fun testCase4() {
-        val gamePage = gamePage(
-            unscrambleWord = "htacw"
-        )
 
         gamePage.checkInitialState()
 
-        gamePage.input() // input == char right answer
+        gamePage.input("watch") // input == char right answer
         gamePage.checkInputVariantState() // check Is available
     }
 
     @Test
     fun testCase5() {
-        val gamePage = gamePage(
-            unscrambleWord = "htacw"
-        )
 
         gamePage.checkInitialState()
 
@@ -106,13 +100,10 @@ class ScenarioTest {
 
     @Test
     fun testCase6() {
-        val gamePage = gamePage(
-            unscrambleWord = "htacw"
-        )
 
         gamePage.checkInitialState()
 
-        gamePage.input() // input == char right answer
+        gamePage.input("watch") // input == char right answer
         gamePage.checkInputVariantState() // check Is available
 
         gamePage.clickSkipButton()
@@ -126,13 +117,10 @@ class ScenarioTest {
 
     @Test
     fun testCase7() {
-        val gamePage = gamePage(
-            unscrambleWord = "htacw"
-        )
 
         gamePage.checkInitialState()
 
-        gamePage.input() // input == char right answer
+        gamePage.input("wathc") // input == char right answer
         gamePage.checkInputVariantState() // check Is available
 
         gamePage.clickCheckButton()
