@@ -8,6 +8,7 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
+import ru.kirill.unscramblewords.game.GamePage
 
 @RunWith(AndroidJUnit4::class)
 class ScenarioTest {
@@ -15,11 +16,11 @@ class ScenarioTest {
     @get:Rule
     val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
-    private lateinit var gamePage = GamePage()
+    private lateinit var gamePage: GamePage
 
     @Before
     fun init() {
-        gamePage = gamePage(
+        gamePage = GamePage(
             unscrambleWord = "htacw"
         )
     }
@@ -29,14 +30,14 @@ class ScenarioTest {
         gamePage.checkInitialState()
 
         gamePage.input("watch")
-        gamePage.checkInputVariantState()
+        gamePage.checkInputVariantStateIsCheckAvailable()
 
         gamePage.clickCheckButton()
         gamePage.checkCorrectState()
 
         gamePage.clickNext()
 
-        gamePage = gamePage(
+        gamePage = GamePage(
             unscrambleWord = "olhel"
         )
 
@@ -49,7 +50,7 @@ class ScenarioTest {
         gamePage.checkInitialState()
 
         gamePage.input("wacth")
-        gamePage.checkInputVariantState()
+        gamePage.checkInputVariantStateIsCheckAvailable()
 
         gamePage.clickCheckButton()
         gamePage.checkIncorrectState()
@@ -59,7 +60,7 @@ class ScenarioTest {
 
         gamePage.clickNext()
 
-        gamePage = gamePage(
+        gamePage = GamePage(
             unscrambleWord = "olhel"
         )
 
@@ -72,7 +73,7 @@ class ScenarioTest {
         gamePage.checkInitialState()
 
         gamePage.input("wat") // input < char then right answer
-        gamePage.checkInputVariantState() // check Is unavailable
+        gamePage.checkInputVariantStateIsCheckUnavailable() // check Is unavailable
     }
 
     @Test
@@ -81,7 +82,7 @@ class ScenarioTest {
         gamePage.checkInitialState()
 
         gamePage.input("watch") // input == char right answer
-        gamePage.checkInputVariantState() // check Is available
+        gamePage.checkInputVariantStateIsCheckAvailable() // check Is available
     }
 
     @Test
@@ -91,7 +92,7 @@ class ScenarioTest {
 
         gamePage.clickSkipButton()
 
-        gamePage = gamePage(
+        gamePage = GamePage(
             unscrambleWord = "olhel"
         )
 
@@ -104,11 +105,11 @@ class ScenarioTest {
         gamePage.checkInitialState()
 
         gamePage.input("watch") // input == char right answer
-        gamePage.checkInputVariantState() // check Is available
+        gamePage.checkInputVariantStateIsCheckAvailable() // check Is available
 
         gamePage.clickSkipButton()
 
-        gamePage = gamePage(
+        gamePage = GamePage(
             unscrambleWord = "olhel"
         )
 
@@ -121,14 +122,14 @@ class ScenarioTest {
         gamePage.checkInitialState()
 
         gamePage.input("wathc") // input == char right answer
-        gamePage.checkInputVariantState() // check Is available
+        gamePage.checkInputVariantStateIsCheckAvailable() // check Is available
 
         gamePage.clickCheckButton()
         gamePage.checkIncorrectState()
 
         gamePage.clickSkipButton()
 
-        gamePage = gamePage(
+        gamePage = GamePage(
             unscrambleWord = "olhel"
         )
 
