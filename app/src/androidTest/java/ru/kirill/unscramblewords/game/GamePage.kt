@@ -2,7 +2,11 @@ package ru.kirill.unscramblewords.game
 
 import android.view.View
 import android.widget.LinearLayout
+import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withParent
 import org.hamcrest.Matcher
+import ru.kirill.unscramblewords.R
 
 class GamePage(
     private val unscrambleWord: String
@@ -10,7 +14,8 @@ class GamePage(
     val containerIdMatcher: Matcher<View> = withParent(withId(R.id.game_container))
     val containerClassMatcher = withParent(isAssignableFrom(LinearLayout::class.java))
     private val failUiText = FailUiText(text = "fail", containerIdMatcher, containerClassMatcher)
-    private val correctUiText = CorrectUiText(text = "correct", containerIdMatcher, containerClassMatcher)
+    private val correctUiText =
+        CorrectUiText(text = "correct", containerIdMatcher, containerClassMatcher)
     private val unscrambleWordUInt = UnscrambleWordUi(
         text = unscrambleWord,
         containerIdMatcher = containerIdMatcher,
@@ -20,17 +25,22 @@ class GamePage(
         containerIdMatcher = containerIdMatcher,
         classTypeMatcher = containerClassMatcher
     )
-    private val checkButtonUi: ButtonUi = ButtonUi(
+    private val checkButtonUi = CheckButtonUi(
+        id = R.id.checkButton,
         textResId = R.string.check,
         containerIdMatcher = containerIdMatcher,
         classTypeMatcher = containerClassMatcher
     )
-    private val nextButtonUi: ButtonUi = ButtonUi(
+    private val nextButtonUi = ButtonUi(
+        id = R.id.nextButton,
+        colorHex = "#279C96",
         textResId = R.string.next,
         containerIdMatcher = containerIdMatcher,
         classTypeMatcher = containerClassMatcher
     )
-    private val skipButtonUi: ButtonUi = ButtonUi(
+    private val skipButtonUi = ButtonUi(
+        id = R.id.skipButton,
+        colorHex = "#279C96",
         textResId = R.string.skip,
         containerIdMatcher = containerIdMatcher,
         classTypeMatcher = containerClassMatcher
@@ -71,7 +81,7 @@ class GamePage(
     }
 
     fun clickCheckButton() {
-        nextButtonUi.click()
+        checkButtonUi.click()
     }
 
     fun checkCorrectState() {
