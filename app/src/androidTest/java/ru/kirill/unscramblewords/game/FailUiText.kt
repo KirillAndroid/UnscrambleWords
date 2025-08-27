@@ -5,8 +5,10 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.not
+import ru.kirill.unscramblewords.R
 
 class FailUiText(
     text: String,
@@ -16,6 +18,7 @@ class FailUiText(
 
     private val interaction: ViewInteraction = onView(
         org.hamcrest.Matchers.allOf(
+            withId(R.id.fail_text_view),
             androidx.test.espresso.matcher.ViewMatchers.withText(text),
             containerIdMatcher,
             containerClassMatcher,

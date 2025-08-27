@@ -13,9 +13,9 @@ class GamePage(
 ) {
     val containerIdMatcher: Matcher<View> = withParent(withId(R.id.game_container))
     val containerClassMatcher = withParent(isAssignableFrom(LinearLayout::class.java))
-    private val failUiText = FailUiText(text = "fail", containerIdMatcher, containerClassMatcher)
+    private val failUiText = FailUiText(text = R.string.failure.toString(), containerIdMatcher, containerClassMatcher)
     private val correctUiText =
-        CorrectUiText(text = "correct", containerIdMatcher, containerClassMatcher)
+        CorrectUiText(text = R.string.correct.toString(), containerIdMatcher, containerClassMatcher)
     private val unscrambleWordUInt = UnscrambleWordUi(
         text = unscrambleWord,
         containerIdMatcher = containerIdMatcher,
@@ -33,14 +33,14 @@ class GamePage(
     )
     private val nextButtonUi = ButtonUi(
         id = R.id.nextButton,
-        colorHex = "#279C96",
+        colorHex = R.color.blue.toString(),
         textResId = R.string.next,
         containerIdMatcher = containerIdMatcher,
         classTypeMatcher = containerClassMatcher
     )
     private val skipButtonUi = ButtonUi(
         id = R.id.skipButton,
-        colorHex = "#279C96",
+        colorHex = R.color.blue.toString(),
         textResId = R.string.skip,
         containerIdMatcher = containerIdMatcher,
         classTypeMatcher = containerClassMatcher
