@@ -1,13 +1,15 @@
 package ru.kirill.unscramblewords
 
 import org.junit.Assert.*;
+import org.junit.Before
 import org.junit.Test
 
 class GameViewModelTest {
     private lateinit var viewModel: GameViewModel
 
+    @Before
     fun init() {
-        viewModel = GameViewModel()
+        viewModel = GameViewModel(repository = FakeRepository())
     }
 
     @Test
@@ -27,7 +29,7 @@ class GameViewModelTest {
         )
         assertEquals(expected, actual)
 
-        actual = viewModel.check()
+        actual = viewModel.check(text = "watch")
         expected = GameUiState.Correct(
             unscrambleWord = "htacw",
             isNextAvailable = true,
@@ -60,7 +62,7 @@ class GameViewModelTest {
         )
         assertEquals(expected, actual)
 
-        actual = viewModel.check()
+        actual = viewModel.check(text = "wathc")
         expected = GameUiState.Incorrect(
             unscrambleWord = "htacw",
             isNextAvailable = false,
@@ -176,7 +178,7 @@ class GameViewModelTest {
         )
         assertEquals(expected, actual)
 
-        actual = viewModel.check()
+        actual = viewModel.check(text = "wathc")
         expected = GameUiState.Incorrect(
             unscrambleWord = "htacw",
             isNextAvailable = false,
@@ -205,11 +207,11 @@ class FakeRepository : GameRepository {
 
     override fun getCurrentWord() = words[currentIndex]
 
-    override fun getNextWord(): String {
+    override fun getNextWord(): UnscrambleAndAnswer {
         if (currentIndex >= words.size) {
             currentIndex = 0
         }
-        return words[currentIndex++]
+        return words[++currentIndex]
     }
 
 }

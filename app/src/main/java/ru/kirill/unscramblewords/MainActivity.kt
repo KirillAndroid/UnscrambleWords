@@ -21,7 +21,16 @@ class MainActivity : AppCompatActivity() {
             setContentView(root)
         }
 
-        val viewModel: GameViewModel = GameViewModel()
+        val viewModel: GameViewModel = GameViewModel(object : GameRepository{
+            override fun getCurrentWord(): UnscrambleAndAnswer {
+                TODO("Not yet implemented")
+            }
+
+            override fun getNextWord(): UnscrambleAndAnswer {
+                TODO("Not yet implemented")
+            }
+
+        })
         binding.nextButton.setOnClickListener {
             val uiState: GameUiState = viewModel.next()
             uiState.update(binding = binding)
@@ -37,9 +46,6 @@ class MainActivity : AppCompatActivity() {
         binding.textInputEditText.addTextChangedListener {
             val uiState: GameUiState = viewModel.handleUserInput(text = it.toString())
             uiState.update(binding = binding)
-        }
-        binding.failTextView.setOnClickListener {
-            val uiState: GameUiState = viewModel.
         }
         val uiState: GameUiState = viewModel.init()
         uiState.update(binding = binding)
