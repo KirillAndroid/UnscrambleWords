@@ -12,9 +12,9 @@ class GameViewModel(private val repository: GameRepository) {
     fun check(text: String): GameUiState {
         val unscrambleWord = repository.getCurrentWord()
         if (unscrambleWord.answer == text)
-            return GameUiState.Correct(unscrambleWord.unscrambleWord, true, false, false)
+            return GameUiState.Correct(unscrambleWord.unscrambleWord, unscrambleWord.answer, true, false, false)
         else
-            return GameUiState.Incorrect(unscrambleWord.unscrambleWord, false, true, true)
+            return GameUiState.Incorrect(unscrambleWord.unscrambleWord, unscrambleWord.answer, false, true, true)
     }
 
     fun handleUserInput(text: String): GameUiState {

@@ -12,7 +12,6 @@ import ru.kirill.unscramblewords.R
 class UnscrambleWordUi(
     text: String,
     containerIdMatcher: Matcher<View>,
-    classTypeMatcher: Matcher<View>
 ) {
 
     private val interaction: ViewInteraction = onView(
@@ -20,7 +19,6 @@ class UnscrambleWordUi(
             withId(R.id.unscramble_word_text_view),
             androidx.test.espresso.matcher.ViewMatchers.withText(text),
             containerIdMatcher,
-            classTypeMatcher,
         )
     )
     fun assertTextIsDisplayed() {

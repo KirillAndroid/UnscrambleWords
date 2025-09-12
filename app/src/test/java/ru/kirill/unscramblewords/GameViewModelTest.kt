@@ -32,6 +32,7 @@ class GameViewModelTest {
         actual = viewModel.check(text = "watch")
         expected = GameUiState.Correct(
             unscrambleWord = "htacw",
+            answer = "watch",
             isNextAvailable = true,
             isCheckAvailable = false,
             isSkipAvailable = false,
@@ -65,6 +66,7 @@ class GameViewModelTest {
         actual = viewModel.check(text = "wathc")
         expected = GameUiState.Incorrect(
             unscrambleWord = "htacw",
+            answer = "watch",
             isNextAvailable = false,
             isCheckAvailable = true,
             isSkipAvailable = true,
@@ -181,6 +183,7 @@ class GameViewModelTest {
         actual = viewModel.check(text = "wathc")
         expected = GameUiState.Incorrect(
             unscrambleWord = "htacw",
+            answer = "watch",
             isNextAvailable = false,
             isCheckAvailable = true,
             isSkipAvailable = true,

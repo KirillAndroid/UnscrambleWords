@@ -12,25 +12,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val binding = ActivityMainBinding.inflate(layoutInflater).apply {
+            setContentView(root)
+        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.game_container)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val binding = ActivityMainBinding.inflate(layoutInflater).apply {
-            setContentView(root)
-        }
 
-        val viewModel: GameViewModel = GameViewModel(object : GameRepository{
-            override fun getCurrentWord(): UnscrambleAndAnswer {
-                TODO("Not yet implemented")
-            }
 
-            override fun getNextWord(): UnscrambleAndAnswer {
-                TODO("Not yet implemented")
-            }
-
-        })
+        val viewModel: GameViewModel = GameViewModel(repository = GameRepository.Base())
         binding.nextButton.setOnClickListener {
             val uiState: GameUiState = viewModel.next()
             uiState.update(binding = binding)

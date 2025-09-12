@@ -17,7 +17,6 @@ class CheckButtonUi(
     id: Int,
     textResId: Int,
     containerIdMatcher: Matcher<View>,
-    classTypeMatcher: Matcher<View>
 ) : AbstractButtonUI(
     onView(
         allOf(
@@ -25,7 +24,6 @@ class CheckButtonUi(
             withText(textResId),
             containerIdMatcher,
             isAssignableFrom(AppCompatButton::class.java),
-            classTypeMatcher
         )
     )
 ) {

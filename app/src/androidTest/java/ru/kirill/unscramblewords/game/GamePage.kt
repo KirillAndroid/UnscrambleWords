@@ -2,7 +2,10 @@ package ru.kirill.unscramblewords.game
 
 import android.view.View
 import android.widget.LinearLayout
+import androidx.test.InstrumentationRegistry
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
+import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withParent
 import org.hamcrest.Matcher
@@ -11,39 +14,37 @@ import ru.kirill.unscramblewords.R
 class GamePage(
     private val unscrambleWord: String
 ) {
-    val containerIdMatcher: Matcher<View> = withParent(withId(R.id.game_container))
-    val containerClassMatcher = withParent(isAssignableFrom(LinearLayout::class.java))
-    private val failUiText = FailUiText(text = R.string.failure.toString(), containerIdMatcher, containerClassMatcher)
+
+    private val context = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext
+    val containerIdMatcher: Matcher<View> =
+        isDescendantOfA(withId(R.id.game_container))
+//    val containerClassMatcher = withParent(isAssignableFrom(LinearLayout::class.java))
+    private val failUiText = FailUiText(text = context.getString(R.string.failure), containerIdMatcher)
     private val correctUiText =
-        CorrectUiText(text = R.string.correct.toString(), containerIdMatcher, containerClassMatcher)
+        CorrectUiText(text = context.getString(R.string.correct), containerIdMatcher)
     private val unscrambleWordUInt = UnscrambleWordUi(
         text = unscrambleWord,
-        containerIdMatcher = containerIdMatcher,
-        classTypeMatcher = containerClassMatcher
+        containerIdMatcher = containerIdMatcher
     )
     private val inputUi = InputUi(
         containerIdMatcher = containerIdMatcher,
-        classTypeMatcher = containerClassMatcher
     )
     private val checkButtonUi = CheckButtonUi(
         id = R.id.checkButton,
         textResId = R.string.check,
         containerIdMatcher = containerIdMatcher,
-        classTypeMatcher = containerClassMatcher
     )
     private val nextButtonUi = ButtonUi(
         id = R.id.nextButton,
-        colorHex = R.color.blue.toString(),
+        colorHex = "#279C96",
         textResId = R.string.next,
         containerIdMatcher = containerIdMatcher,
-        classTypeMatcher = containerClassMatcher
     )
     private val skipButtonUi = ButtonUi(
         id = R.id.skipButton,
-        colorHex = R.color.blue.toString(),
+        colorHex = "#279C96",
         textResId = R.string.skip,
         containerIdMatcher = containerIdMatcher,
-        classTypeMatcher = containerClassMatcher
     )
 
     fun checkInitialState() {

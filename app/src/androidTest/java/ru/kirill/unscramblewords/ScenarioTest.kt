@@ -56,6 +56,7 @@ class ScenarioTest {
         gamePage.checkIncorrectState()
 
         gamePage.input("watch")
+        gamePage.clickCheckButton()
         gamePage.checkCorrectState()
 
         gamePage.clickNext()

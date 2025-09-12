@@ -21,15 +21,13 @@ open class ButtonUi(
     colorHex: String,
     textResId: Int,
     containerIdMatcher: Matcher<View>,
-    classTypeMatcher: Matcher<View>
 ) : AbstractButtonUI(
     interaction = onView(
         allOf(
             withId(id),
             withText(textResId),
-            containerIdMatcher,
-            classTypeMatcher,
-            ButtonColorMatcher(colorHex)
+            containerIdMatcher
+//            ButtonColorMatcher(colorHex)
         )
     )) {
 

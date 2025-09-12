@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">UnscrambleWords</string>
     <string name="failure">Failure</string>
-    <string name="correct">Correct\n</string>
-    <string name="check">Check\n</string>
-    <string name="next">Next\n</string>
-    <string name="skip">Skip\n</string>
+    <string name="correct">Correct</string>
+    <string name="check">Check</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
 </resources>

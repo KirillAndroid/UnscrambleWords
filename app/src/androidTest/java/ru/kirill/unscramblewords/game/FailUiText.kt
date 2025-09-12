@@ -13,7 +13,6 @@ import ru.kirill.unscramblewords.R
 class FailUiText(
     text: String,
     containerIdMatcher: Matcher<View>,
-    containerClassMatcher: Matcher<View>
 ) {
 
     private val interaction: ViewInteraction = onView(
@@ -21,7 +20,6 @@ class FailUiText(
             withId(R.id.fail_text_view),
             androidx.test.espresso.matcher.ViewMatchers.withText(text),
             containerIdMatcher,
-            containerClassMatcher,
         )
     )
     fun assertNotVisible() {
