@@ -28,18 +28,24 @@ class ScenarioTest {
     @Test
     fun testCase1() {
         gamePage.checkInitialState()
+        activityScenarioRule.scenario.recreate()
 
         gamePage.input("watch")
+        activityScenarioRule.scenario.recreate()
         gamePage.checkInputVariantStateIsCheckAvailable()
+        activityScenarioRule.scenario.recreate()
 
         gamePage.clickCheckButton()
+        activityScenarioRule.scenario.recreate()
         gamePage.checkCorrectState()
 
         gamePage.clickNext()
+        activityScenarioRule.scenario.recreate()
 
         gamePage = GamePage(
             unscrambleWord = "olhel"
         )
+        activityScenarioRule.scenario.recreate()
 
         gamePage.checkInitialState()
     }
@@ -48,23 +54,31 @@ class ScenarioTest {
     fun testCase2() {
 
         gamePage.checkInitialState()
+        activityScenarioRule.scenario.recreate()
 
         gamePage.input("wacth")
+        activityScenarioRule.scenario.recreate()
         gamePage.checkInputVariantStateIsCheckAvailable()
+        activityScenarioRule.scenario.recreate()
 
         gamePage.clickCheckButton()
         gamePage.checkIncorrectState()
 
+        activityScenarioRule.scenario.recreate()
+
         gamePage.input("watch")
+        activityScenarioRule.scenario.recreate()
         gamePage.clickCheckButton()
         gamePage.checkCorrectState()
 
         gamePage.clickNext()
+        activityScenarioRule.scenario.recreate()
 
         gamePage = GamePage(
             unscrambleWord = "olhel"
         )
 
+        activityScenarioRule.scenario.recreate()
         gamePage.checkInitialState()
     }
 
@@ -74,6 +88,7 @@ class ScenarioTest {
         gamePage.checkInitialState()
 
         gamePage.input("wat") // input < char then right answer
+        activityScenarioRule.scenario.recreate()
         gamePage.checkInputVariantStateIsCheckUnavailable() // check Is unavailable
     }
 
@@ -83,6 +98,7 @@ class ScenarioTest {
         gamePage.checkInitialState()
 
         gamePage.input("watch") // input == char right answer
+        activityScenarioRule.scenario.recreate()
         gamePage.checkInputVariantStateIsCheckAvailable() // check Is available
     }
 
@@ -92,11 +108,13 @@ class ScenarioTest {
         gamePage.checkInitialState()
 
         gamePage.clickSkipButton()
+        activityScenarioRule.scenario.recreate()
 
         gamePage = GamePage(
             unscrambleWord = "olhel"
         )
 
+        activityScenarioRule.scenario.recreate()
         gamePage.checkInitialState()
     }
 
@@ -106,7 +124,9 @@ class ScenarioTest {
         gamePage.checkInitialState()
 
         gamePage.input("watch") // input == char right answer
+        activityScenarioRule.scenario.recreate()
         gamePage.checkInputVariantStateIsCheckAvailable() // check Is available
+        activityScenarioRule.scenario.recreate()
 
         gamePage.clickSkipButton()
 
@@ -121,9 +141,11 @@ class ScenarioTest {
     fun testCase7() {
 
         gamePage.checkInitialState()
+        activityScenarioRule.scenario.recreate()
 
         gamePage.input("wathc") // input == char right answer
         gamePage.checkInputVariantStateIsCheckAvailable() // check Is available
+        activityScenarioRule.scenario.recreate()
 
         gamePage.clickCheckButton()
         gamePage.checkIncorrectState()

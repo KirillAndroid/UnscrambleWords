@@ -2,8 +2,9 @@ package ru.kirill.unscramblewords
 
 import androidx.core.view.isVisible
 import ru.kirill.unscramblewords.databinding.ActivityMainBinding
+import java.io.Serializable
 
-interface GameUiState {
+interface GameUiState : Serializable {
     fun update(binding: ActivityMainBinding)
 
     data class Initial(val unscrambleWord: String) : GameUiState {

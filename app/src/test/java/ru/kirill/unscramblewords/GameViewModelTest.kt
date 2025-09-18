@@ -211,10 +211,8 @@ class FakeRepository : GameRepository {
     override fun getCurrentWord() = words[currentIndex]
 
     override fun getNextWord(): UnscrambleAndAnswer {
-        if (currentIndex >= words.size) {
-            currentIndex = 0
-        }
-        return words[++currentIndex]
+        currentIndex = (currentIndex + 1) % words.size
+        return words[currentIndex]
     }
 
 }

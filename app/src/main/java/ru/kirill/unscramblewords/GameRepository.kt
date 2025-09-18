@@ -11,7 +11,11 @@ interface GameRepository {
     ), UnscrambleAndAnswer(
         unscrambleWord = "olhel",
         answer = "hello"
-    ))) : GameRepository {
+    ), UnscrambleAndAnswer(
+        unscrambleWord = "321",
+        answer = "123"
+    )
+    )) : GameRepository {
         private var currentIndex: Int = 0
 
         override fun getCurrentWord() = words[currentIndex]
