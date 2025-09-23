@@ -16,14 +16,13 @@ class GameViewModelTest {
     fun testNumber1() {
         var actual : GameUiState = viewModel.init()
         var expected : GameUiState = GameUiState.Initial(
-            unscrambleWord = "htacw",
+            unscrambleWordText = "htacw",
         )
 
         assertEquals(expected, actual)
 
         actual = viewModel.handleUserInput(text = "watch")
         expected = GameUiState.InputVariant(
-            unscrambleWord = "htacw",
             userInput = "watch",
             isCheckAvailable = true,
         )
@@ -31,7 +30,6 @@ class GameViewModelTest {
 
         actual = viewModel.check(text = "watch")
         expected = GameUiState.Correct(
-            unscrambleWord = "htacw",
             answer = "watch",
             isNextAvailable = true,
             isCheckAvailable = false,
@@ -41,7 +39,7 @@ class GameViewModelTest {
 
         actual = viewModel.next()
         expected = GameUiState.Initial(
-            unscrambleWord = "olhel",
+            unscrambleWordText = "olhel",
         )
         assertEquals(expected, actual)
     }
@@ -50,14 +48,13 @@ class GameViewModelTest {
     fun testNumber2() {
         var actual : GameUiState = viewModel.init()
         var expected : GameUiState = GameUiState.Initial(
-            unscrambleWord = "htacw",
+            unscrambleWordText = "htacw",
         )
 
         assertEquals(expected, actual)
 
         actual = viewModel.handleUserInput(text = "wathc") //неправильный ответ
         expected = GameUiState.InputVariant(
-            unscrambleWord = "htacw",
             userInput = "wathc",
             isCheckAvailable = true,
         )
@@ -65,7 +62,6 @@ class GameViewModelTest {
 
         actual = viewModel.check(text = "wathc")
         expected = GameUiState.Incorrect(
-            unscrambleWord = "htacw",
             answer = "watch",
             isNextAvailable = false,
             isCheckAvailable = true,
@@ -75,7 +71,6 @@ class GameViewModelTest {
 
         actual = viewModel.handleUserInput(text = "watch") //правильный ответ
         expected = GameUiState.InputVariant(
-            unscrambleWord = "htacw",
             userInput = "watch",
             isCheckAvailable = true,
         )
@@ -83,7 +78,7 @@ class GameViewModelTest {
 
         actual = viewModel.next()
         expected = GameUiState.Initial(
-            unscrambleWord = "olhel",
+            unscrambleWordText = "olhel",
         )
         assertEquals(expected, actual)
     }
@@ -92,13 +87,12 @@ class GameViewModelTest {
     fun testNumber3() {
         var actual : GameUiState = viewModel.init()
         var expected : GameUiState = GameUiState.Initial(
-            unscrambleWord = "htacw",
+            unscrambleWordText = "htacw",
         )
         assertEquals(expected, actual)
 
         actual = viewModel.handleUserInput(text = "12345") //кол-во букв равно кол-ву букв в загаданном слове
         expected = GameUiState.InputVariant(
-            unscrambleWord = "htacw",
             userInput = "12345",
             isCheckAvailable = true,
         )
@@ -109,13 +103,12 @@ class GameViewModelTest {
     fun testNumber4() {
         var actual : GameUiState = viewModel.init()
         var expected : GameUiState = GameUiState.Initial(
-            unscrambleWord = "htacw",
+            unscrambleWordText = "htacw",
         )
         assertEquals(expected, actual)
 
         actual = viewModel.handleUserInput(text = "12345678") //кол-во букв равно кол-ву букв в загаданном слове
         expected = GameUiState.InputVariant(
-            unscrambleWord = "htacw",
             userInput = "12345678",
             isCheckAvailable = false,
         )
@@ -126,13 +119,13 @@ class GameViewModelTest {
     fun testNumber5() {
         var actual : GameUiState = viewModel.init()
         var expected : GameUiState = GameUiState.Initial(
-            unscrambleWord = "htacw",
+            unscrambleWordText = "htacw",
         )
         assertEquals(expected, actual)
 
         actual = viewModel.skip()
         expected = GameUiState.Initial(
-            unscrambleWord = "olhel",
+            unscrambleWordText = "olhel",
         )
         assertEquals(expected, actual)
     }
@@ -144,13 +137,12 @@ class GameViewModelTest {
     fun testNumber6() {
         var actual : GameUiState = viewModel.init()
         var expected : GameUiState = GameUiState.Initial(
-            unscrambleWord = "htacw",
+            unscrambleWordText = "htacw",
         )
         assertEquals(expected, actual)
 
         actual = viewModel.handleUserInput(text = "wathc")
         expected = GameUiState.InputVariant(
-            unscrambleWord = "htacw",
             userInput = "wathc",
             isCheckAvailable = true,
         )
@@ -158,7 +150,7 @@ class GameViewModelTest {
 
         actual = viewModel.skip()
         expected = GameUiState.Initial(
-            unscrambleWord = "olhel",
+            unscrambleWordText = "olhel",
         )
         assertEquals(expected, actual)
     }
@@ -167,14 +159,13 @@ class GameViewModelTest {
     fun testNumber7() {
         var actual : GameUiState = viewModel.init()
         var expected : GameUiState = GameUiState.Initial(
-            unscrambleWord = "htacw",
+            unscrambleWordText = "htacw",
         )
 
         assertEquals(expected, actual)
 
         actual = viewModel.handleUserInput(text = "wathc")
         expected = GameUiState.InputVariant(
-            unscrambleWord = "htacw",
             userInput = "wathc",
             isCheckAvailable = true,
         )
@@ -182,7 +173,6 @@ class GameViewModelTest {
 
         actual = viewModel.check(text = "wathc")
         expected = GameUiState.Incorrect(
-            unscrambleWord = "htacw",
             answer = "watch",
             isNextAvailable = false,
             isCheckAvailable = true,
@@ -192,7 +182,7 @@ class GameViewModelTest {
 
         actual = viewModel.skip()
         expected = GameUiState.Initial(
-            unscrambleWord = "olhel",
+            unscrambleWordText = "olhel",
         )
         assertEquals(expected, actual)
     }
