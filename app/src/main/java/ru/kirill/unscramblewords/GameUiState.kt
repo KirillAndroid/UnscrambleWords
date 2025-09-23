@@ -1,108 +1,137 @@
 package ru.kirill.unscramblewords
 
-import androidx.core.view.isVisible
-import ru.kirill.unscramblewords.databinding.ActivityMainBinding
+import android.view.View
 import java.io.Serializable
 
 interface GameUiState : Serializable {
-    fun update(binding: ActivityMainBinding)
+    fun update(
+        inputTextView: InputView,
+        failTextView: VisibilityText,
+        correctTextView: VisibilityText,
+        unscrambleWord: UnscrambleTextView,
+        checkButton: VisibilityButton,
+        nextButton: VisibilityButton,
+        skipButton: VisibilityButton
+    )
 
-    data class Initial(val unscrambleWord: String, val userInput: String = "") : GameUiState {
-        override fun update(binding: ActivityMainBinding) {
-            binding.unscrambleWordTextView.text = unscrambleWord
-            binding.textInputEditText.setText(userInput)
-            binding.textInputEditText.isEnabled = true
+    data class Initial(val unscrambleWordText: String, val userInput: String = "") : GameUiState {
+        override fun update(inputTextView: InputView,
+            failTextView: VisibilityText,
+            correctTextView: VisibilityText,
+            unscrambleWord: UnscrambleTextView,
+            checkButton: VisibilityButton,
+            nextButton: VisibilityButton,
+            skipButton: VisibilityButton
+        ) {
+            unscrambleWord.update(unscrambleWordText)
+            inputTextView.update(InputViewState(userInput))
 
-            binding.checkButton.isEnabled = false
 
-            binding.nextButton.isVisible = false
-            binding.nextButton.isEnabled = false
+            checkButton.update(VisibilityButtonState(View.VISIBLE, false))
+            nextButton.update(VisibilityButtonState(View.GONE, false))
+            skipButton.update(VisibilityButtonState(View.VISIBLE, true))
 
-            binding.skipButton.isVisible = true
-            binding.skipButton.isEnabled = true
+            failTextView.update(VisibilityTextState(View.GONE, false))
+            correctTextView.update(VisibilityTextState(View.GONE, false))
 
-            binding.failTextView.isVisible = false
-            binding.correctTextView.isVisible = false
         }
 
     }
 
-    data class InputVariant(val unscrambleWord: String, val userInput: String, val isCheckAvailable: Boolean) :
+    data class InputVariant(
+                            val userInput: String,
+                            val isCheckAvailable: Boolean) :
         GameUiState {
-        override fun update(binding: ActivityMainBinding) {
-            binding.unscrambleWordTextView.text = unscrambleWord
-            if (binding.textInputEditText.text.toString() != userInput) {
-                binding.textInputEditText.setText(userInput)
-            }
-            binding.textInputEditText.isEnabled = true
+        override fun update(
+            inputTextView: InputView,
+            failTextView: VisibilityText,
+            correctTextView: VisibilityText,
+            unscrambleWord: UnscrambleTextView,
+            checkButton: VisibilityButton,
+            nextButton: VisibilityButton,
+            skipButton: VisibilityButton
+        ) {
+            inputTextView.update(InputViewState(userInput))
+            checkButton.update(VisibilityButtonState(View.VISIBLE, isCheckAvailable))
 
-            binding.checkButton.isEnabled = isCheckAvailable
+//            nextButton.update(VisibilityButtonState(View.GONE, false))
 
-            binding.nextButton.isVisible = false
-            binding.nextButton.isEnabled = false
-
-            binding.skipButton.isVisible = true
-            binding.skipButton.isEnabled = true
-
-            binding.failTextView.isVisible = false
-            binding.correctTextView.isVisible = false
+//            skipButton.update(VisibilityButtonState(View.VISIBLE, true))
         }
 
     }
 
     data class Correct(
-        val unscrambleWord: String,
         val answer: String,
         val isNextAvailable: Boolean,
         val isCheckAvailable: Boolean,
         val isSkipAvailable: Boolean,
     ) : GameUiState {
-        override fun update(binding: ActivityMainBinding) {
-            binding.unscrambleWordTextView.text = unscrambleWord
-            if (binding.textInputEditText.text.toString() != answer) {
-                binding.textInputEditText.setText(answer)
-            }
-            binding.textInputEditText.isEnabled = true
+        override fun update(
+            inputTextView: InputView,
+            failTextView: VisibilityText,
+            correctTextView: VisibilityText,
+            unscrambleWord: UnscrambleTextView,
+            checkButton: VisibilityButton,
+            nextButton: VisibilityButton,
+            skipButton: VisibilityButton
+        ) {
+            inputTextView.update(InputViewState(answer))
 
-            binding.checkButton.isEnabled = isCheckAvailable
+            checkButton.update(VisibilityButtonState(View.VISIBLE, false))
 
-            binding.nextButton.isVisible = true
-            binding.nextButton.isEnabled = isNextAvailable
+            nextButton.update(VisibilityButtonState(View.VISIBLE, isNextAvailable))
 
-            binding.skipButton.isVisible = false
-            binding.skipButton.isEnabled = isSkipAvailable
+            skipButton.update(VisibilityButtonState(View.GONE, isSkipAvailable))
 
-            binding.correctTextView.isVisible = true
+            failTextView.update(VisibilityTextState(View.GONE, false))
+            correctTextView.update(VisibilityTextState(View.VISIBLE, false))
 
         }
 
     }
 
     data class Incorrect(
-        val unscrambleWord: String,
         val answer: String,
         val isNextAvailable: Boolean,
         val isCheckAvailable: Boolean,
         val isSkipAvailable: Boolean
     ) : GameUiState {
-        override fun update(binding: ActivityMainBinding) {
-            binding.unscrambleWordTextView.text = unscrambleWord
-            if (binding.textInputEditText.text.toString() != answer) {
-                binding.textInputEditText.setText(answer)
-            }
-            binding.textInputEditText.isEnabled = true
+        override fun update(
+            inputTextView: InputView,
+            failTextView: VisibilityText,
+            correctTextView: VisibilityText,
+            unscrambleWord: UnscrambleTextView,
+            checkButton: VisibilityButton,
+            nextButton: VisibilityButton,
+            skipButton: VisibilityButton
+        ) {
+            inputTextView.update(InputViewState(answer))
 
-            binding.checkButton.isEnabled = isCheckAvailable
+            checkButton.update(VisibilityButtonState(View.VISIBLE, isCheckAvailable))
 
-            binding.nextButton.isVisible = false
-            binding.nextButton.isEnabled = isNextAvailable
+            nextButton.update(VisibilityButtonState(View.GONE, isNextAvailable))
 
-            binding.skipButton.isVisible = true
-            binding.skipButton.isEnabled = isSkipAvailable
+            skipButton.update(VisibilityButtonState(View.VISIBLE, isSkipAvailable))
 
-            binding.failTextView.isVisible = true
+
+            failTextView.update(VisibilityTextState(View.VISIBLE, false))
+            correctTextView.update(VisibilityTextState(View.GONE, false))
+
         }
 
+    }
+
+    object Empty : GameUiState {
+        override fun update(
+            inputTextView: InputView,
+            failTextView: VisibilityText,
+            correctTextView: VisibilityText,
+            unscrambleWord: UnscrambleTextView,
+            checkButton: VisibilityButton,
+            nextButton: VisibilityButton,
+            skipButton: VisibilityButton
+        ) = Unit
     }
 
 }

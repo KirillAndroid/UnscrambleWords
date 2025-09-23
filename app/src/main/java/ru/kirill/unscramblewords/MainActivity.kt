@@ -8,7 +8,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.widget.addTextChangedListener
 import ru.kirill.unscramblewords.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -29,7 +28,14 @@ class MainActivity : AppCompatActivity() {
             count: Int
         ) {
             uiState = viewModel.handleUserInput(text = s.toString())
-            uiState.update(binding = binding)
+            uiState.update(
+                failTextView = binding.failTextView,
+                correctTextView = binding.correctTextView,
+                unscrambleWord = binding.unscrambleWordTextView,
+                inputTextView = binding.inputView,
+                checkButton = binding.checkButton,
+                nextButton = binding.nextButton,
+                skipButton = binding.skipButton)
         }
 
     }
@@ -55,46 +61,66 @@ class MainActivity : AppCompatActivity() {
 
         binding.nextButton.setOnClickListener {
             uiState = viewModel.next()
-            uiState.update(binding = binding)
+            uiState.update(
+                inputTextView = binding.inputView,
+                failTextView = binding.failTextView,
+                correctTextView = binding.correctTextView,
+                unscrambleWord = binding.unscrambleWordTextView,
+                checkButton = binding.checkButton,
+                nextButton = binding.nextButton,
+                skipButton = binding.skipButton)
         }
         binding.skipButton.setOnClickListener {
             uiState = viewModel.skip()
-            uiState.update(binding = binding)
+            uiState.update(
+                inputTextView = binding.inputView,
+                failTextView = binding.failTextView,
+                correctTextView = binding.correctTextView,
+                unscrambleWord = binding.unscrambleWordTextView,
+                checkButton = binding.checkButton,
+                nextButton = binding.nextButton,
+                skipButton = binding.skipButton)
         }
         binding.checkButton.setOnClickListener {
-            uiState = viewModel.check(text = binding.textInputEditText.text.toString())
-            uiState.update(binding = binding)
+            uiState = viewModel.check(text = binding.inputView.binding.textInputEditText.text.toString())
+            uiState.update(
+                inputTextView = binding.inputView,
+                failTextView = binding.failTextView,
+                correctTextView = binding.correctTextView,
+                unscrambleWord = binding.unscrambleWordTextView,
+                checkButton = binding.checkButton,
+                nextButton = binding.nextButton,
+                skipButton = binding.skipButton)
         }
-//        binding.textInputEditText.addTextChangedListener {
-//            uiState = viewModel.handleUserInput(text = it.toString())
-//            uiState.update(binding = binding)
-//        }
+
         uiState = if (savedInstanceState == null) {
             viewModel.init()
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                savedInstanceState.getSerializable("uiState", GameUiState::class.java) as GameUiState
-            } else {
-                savedInstanceState.getSerializable("uiState") as GameUiState
+            GameUiState.Empty
 
-            }
+
         }
-        uiState.update(binding = binding)
-
+        uiState.update(
+            inputTextView = binding.inputView,
+            failTextView = binding.failTextView,
+            correctTextView = binding.correctTextView,
+            unscrambleWord = binding.unscrambleWordTextView,
+            checkButton = binding.checkButton,
+            nextButton = binding.nextButton,
+            skipButton = binding.skipButton)
     }
 
     override fun onPause() {
+
         super.onPause()
-        binding.textInputEditText.removeTextChangedListener(textWatcher)
+        binding.inputView.removeTextChangedListener(textWatcher)
+
     }
 
     override fun onResume() {
-        super.onResume()
-        binding.textInputEditText.addTextChangedListener(textWatcher)
-    }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putSerializable("uiState", uiState)
+        super.onResume()
+        binding.inputView.addTextChangedListener(textWatcher)
+
     }
 }
