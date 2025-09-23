@@ -7,10 +7,10 @@ import java.io.Serializable
 interface GameUiState : Serializable {
     fun update(binding: ActivityMainBinding)
 
-    data class Initial(val unscrambleWord: String) : GameUiState {
+    data class Initial(val unscrambleWord: String, val userInput: String = "") : GameUiState {
         override fun update(binding: ActivityMainBinding) {
             binding.unscrambleWordTextView.text = unscrambleWord
-            binding.textInputEditText.setText("")
+            binding.textInputEditText.setText(userInput)
             binding.textInputEditText.isEnabled = true
 
             binding.checkButton.isEnabled = false

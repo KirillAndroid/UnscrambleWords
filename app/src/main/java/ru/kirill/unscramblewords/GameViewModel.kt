@@ -2,11 +2,11 @@ package ru.kirill.unscramblewords
 
 class GameViewModel(private val repository: GameRepository) {
     fun next(): GameUiState {
-        return GameUiState.Initial(repository.getNextWord().unscrambleWord)
+        return GameUiState.Initial(repository.getNextWord().unscrambleWord, "")
     }
 
     fun skip(): GameUiState {
-        return GameUiState.Initial(repository.getNextWord().unscrambleWord)
+        return GameUiState.Initial(repository.getNextWord().unscrambleWord, "")
     }
 
     fun check(text: String): GameUiState {
@@ -18,6 +18,7 @@ class GameViewModel(private val repository: GameRepository) {
     }
 
     fun handleUserInput(text: String): GameUiState {
+        repository.saveCurrentUserInput(text)
         val unscrambleWord = repository.getCurrentWord()
         if (text.length == unscrambleWord.unscrambleWord.length)
             return GameUiState.InputVariant(unscrambleWord.unscrambleWord, text, true)
@@ -26,7 +27,7 @@ class GameViewModel(private val repository: GameRepository) {
     }
 
     fun init(): GameUiState {
-        return GameUiState.Initial(repository.getCurrentWord().unscrambleWord)
+        return GameUiState.Initial(repository.getCurrentWord().unscrambleWord, repository.getCurrentUserInput())
     }
 
 }

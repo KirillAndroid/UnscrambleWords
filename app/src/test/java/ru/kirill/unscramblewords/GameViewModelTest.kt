@@ -215,4 +215,14 @@ class FakeRepository : GameRepository {
         return words[currentIndex]
     }
 
+    private var userInput: String = ""
+
+    override fun getCurrentUserInput(): String {
+        return userInput
+    }
+
+    override fun saveCurrentUserInput(newValue: String) {
+        userInput = newValue
+    }
+
 }
