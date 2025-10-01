@@ -1,6 +1,13 @@
-package ru.kirill.unscramblewords
+package ru.kirill.unscramblewords.fragments.game
 
 import android.view.View
+import ru.kirill.unscramblewords.customviews.InputView
+import ru.kirill.unscramblewords.customviews.InputViewState
+import ru.kirill.unscramblewords.customviews.UnscrambleTextView
+import ru.kirill.unscramblewords.customviews.VisibilityButton
+import ru.kirill.unscramblewords.customviews.VisibilityButtonState
+import ru.kirill.unscramblewords.customviews.VisibilityText
+import ru.kirill.unscramblewords.customviews.VisibilityTextState
 import java.io.Serializable
 
 interface GameUiState : Serializable {
@@ -16,12 +23,12 @@ interface GameUiState : Serializable {
 
     data class Initial(val unscrambleWordText: String, val userInput: String = "") : GameUiState {
         override fun update(inputTextView: InputView,
-            failTextView: VisibilityText,
-            correctTextView: VisibilityText,
-            unscrambleWord: UnscrambleTextView,
-            checkButton: VisibilityButton,
-            nextButton: VisibilityButton,
-            skipButton: VisibilityButton
+                            failTextView: VisibilityText,
+                            correctTextView: VisibilityText,
+                            unscrambleWord: UnscrambleTextView,
+                            checkButton: VisibilityButton,
+                            nextButton: VisibilityButton,
+                            skipButton: VisibilityButton
         ) {
             unscrambleWord.update(unscrambleWordText)
             inputTextView.update(InputViewState(userInput))

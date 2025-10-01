@@ -3,6 +3,7 @@ package ru.kirill.unscramblewords.game
 import android.view.View
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewInteraction
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
@@ -49,6 +50,10 @@ class InputUi(
         layoutInteraction.check(matches(isEnabled()))
             .check(matches(TextInputLayoutErrorEnabledMatcher(false)))
         inputInteraction.check(matches(withText(org.hamcrest.Matchers.not(""))))
+    }
+
+    fun assertDoesNotExists() {
+        layoutInteraction.check(doesNotExist())
     }
 
 }

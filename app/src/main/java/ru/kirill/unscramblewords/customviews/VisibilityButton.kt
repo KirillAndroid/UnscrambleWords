@@ -1,10 +1,11 @@
-package ru.kirill.unscramblewords
+package ru.kirill.unscramblewords.customviews
 
 import android.content.Context
 import android.os.Parcelable
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatButton
 
-class VisibilityButton : androidx.appcompat.widget.AppCompatButton, UpdateButtonVisibility {
+class VisibilityButton : AppCompatButton, UpdateButtonVisibility {
     private lateinit var state: VisibilityButtonState
 
     constructor(context: Context) : super(context)

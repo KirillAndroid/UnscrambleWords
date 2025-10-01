@@ -8,6 +8,7 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
+import ru.kirill.unscramblewords.game.GameOverPage
 import ru.kirill.unscramblewords.game.GamePage
 
 @RunWith(AndroidJUnit4::class)
@@ -157,5 +158,126 @@ class ScenarioTest {
         )
 
         gamePage.checkInitialState()
+    }
+
+    @Test
+    fun testCase8() {
+        gamePage.checkInitialState()
+        activityScenarioRule.scenario.recreate()
+
+        gamePage.input("watch")
+        activityScenarioRule.scenario.recreate()
+        gamePage.checkInputVariantStateIsCheckAvailable()
+        activityScenarioRule.scenario.recreate()
+
+        gamePage.clickCheckButton()
+        activityScenarioRule.scenario.recreate()
+        gamePage.checkCorrectState()
+
+        gamePage.clickNext()
+        activityScenarioRule.scenario.recreate()
+
+        gamePage = GamePage(
+            unscrambleWord = "olhel"
+        )
+        activityScenarioRule.scenario.recreate()
+
+        gamePage.checkInitialState()
+        activityScenarioRule.scenario.recreate()
+
+        gamePage.input("hello")
+        activityScenarioRule.scenario.recreate()
+        gamePage.checkInputVariantStateIsCheckAvailable()
+        activityScenarioRule.scenario.recreate()
+
+        gamePage.clickCheckButton()
+        activityScenarioRule.scenario.recreate()
+        gamePage.checkCorrectState()
+
+        gamePage.clickNext()
+        gamePage.assertNotVisible()
+        var gameOverPage = GameOverPage(
+            correct = 2, incorrect = 0
+        )
+        gameOverPage.assertGameOverState()
+        activityScenarioRule.scenario.recreate()
+        gameOverPage.clickNewGameButton()
+        gameOverPage.assertNotVisible()
+
+        //2 stage
+        gamePage = GamePage(
+            unscrambleWord = "aliamn"
+        )
+        gamePage.input("anilam")
+        activityScenarioRule.scenario.recreate()
+        gamePage.checkInputVariantStateIsCheckAvailable()
+        activityScenarioRule.scenario.recreate()
+
+        gamePage.clickCheckButton()
+        activityScenarioRule.scenario.recreate()
+        gamePage.checkIncorrectState()
+
+        gamePage.clickNext()
+        activityScenarioRule.scenario.recreate()
+
+        gamePage = GamePage(
+            unscrambleWord = "cera"
+        )
+        gamePage.input("race")
+        activityScenarioRule.scenario.recreate()
+        gamePage.checkInputVariantStateIsCheckAvailable()
+        activityScenarioRule.scenario.recreate()
+
+        gamePage.clickCheckButton()
+        activityScenarioRule.scenario.recreate()
+        gamePage.checkCorrectState()
+
+        gamePage.clickNext()
+        gamePage.assertNotVisible()
+        gameOverPage = GameOverPage(
+            correct = 1, incorrect = 1
+        )
+        gameOverPage.assertGameOverState()
+        activityScenarioRule.scenario.recreate()
+        gameOverPage.clickNewGameButton()
+        gameOverPage.assertNotVisible()
+
+        //3stage
+        gamePage = GamePage(
+            unscrambleWord = "douns"
+        )
+        gamePage.input("soind")
+        activityScenarioRule.scenario.recreate()
+        gamePage.checkInputVariantStateIsCheckAvailable()
+        activityScenarioRule.scenario.recreate()
+
+        gamePage.clickCheckButton()
+        activityScenarioRule.scenario.recreate()
+        gamePage.checkIncorrectState()
+
+        gamePage.clickNext()
+        activityScenarioRule.scenario.recreate()
+
+        gamePage = GamePage(
+            unscrambleWord = "aflimy"
+        )
+        gamePage.input("famaly")
+        activityScenarioRule.scenario.recreate()
+        gamePage.checkInputVariantStateIsCheckAvailable()
+        activityScenarioRule.scenario.recreate()
+
+        gamePage.clickCheckButton()
+        activityScenarioRule.scenario.recreate()
+        gamePage.checkIncorrectState()
+
+        gamePage.clickNext()
+        gamePage.assertNotVisible()
+        gameOverPage = GameOverPage(
+            correct = 0, incorrect = 2
+        )
+        gameOverPage.assertGameOverState()
+        activityScenarioRule.scenario.recreate()
+        gameOverPage.clickNewGameButton()
+        gameOverPage.assertNotVisible()
     }
 }

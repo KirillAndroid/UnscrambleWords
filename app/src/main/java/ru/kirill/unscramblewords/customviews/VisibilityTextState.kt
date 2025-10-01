@@ -1,4 +1,4 @@
-package ru.kirill.unscramblewords
+package ru.kirill.unscramblewords.customviews
 
 import android.os.Build
 import android.os.Parcel

@@ -5,4 +5,6 @@
     <string name="check">Check</string>
     <string name="next">Next</string>
     <string name="skip">Skip</string>
+    <string name="new_game">NewGame</string>
+    <string name="statistics">Statistics: \nCorrect = %d, \nIncorrect = %d</string>
 </resources>

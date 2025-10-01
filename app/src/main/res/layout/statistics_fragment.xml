@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/purple"
+    android:id="@+id/game_over_container"
+    android:layout_height="match_parent">
+
+    <ru.kirill.unscramblewords.customviews.UnscrambleTextView
+        android:layout_width="match_parent"
+        android:id="@+id/statistics"
+        android:layout_gravity="center"
+        android:gravity="center"
+        tools:text="Statistics: \nCorrect = $correct, \nIncorrect = $incorrect"
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content">
+
+    </ru.kirill.unscramblewords.customviews.UnscrambleTextView>
+
+    <ru.kirill.unscramblewords.customviews.VisibilityButton
+        android:id="@+id/newGameButton"
+        android:text="@string/new_game"
+        android:backgroundTint="@color/blue"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_height="wrap_content"/>
+
+</FrameLayout>

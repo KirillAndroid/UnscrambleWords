@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/game_container"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/purple"
+    tools:context=".MainActivity">
+
+
+    <ru.kirill.unscramblewords.customviews.VisibilityText
+        android:id="@+id/fail_text_view"
+        tools:text="Fail"
+        android:textSize="24sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+        android:gravity="center"
+        android:text="@string/failure"
+        android:textColor="#FF0000"
+        android:visibility="invisible"
+        />
+    <ru.kirill.unscramblewords.customviews.VisibilityText
+        android:id="@+id/correct_text_view"
+        tools:text="Correct"
+        android:textSize="24sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+        android:gravity="center"
+        android:text="@string/correct"
+        android:textColor="#00FF00"
+        android:visibility="invisible"
+        />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        />
+
+    <ru.kirill.unscramblewords.customviews.UnscrambleTextView
+        android:id="@+id/unscramble_word_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Example shuffled word"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="36sp"
+        />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        />
+
+    <ru.kirill.unscramblewords.customviews.InputView
+        android:id="@+id/inputView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ru.kirill.unscramblewords.customviews.InputView>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        />
+
+    <ru.kirill.unscramblewords.customviews.VisibilityButton
+        android:id="@+id/checkButton"
+        android:text="@string/check"
+        android:layout_width="match_parent"
+        android:backgroundTint="@color/red"
+        android:layout_height="wrap_content"/>
+
+    <ru.kirill.unscramblewords.customviews.VisibilityButton
+        android:id="@+id/nextButton"
+        android:text="@string/next"
+        android:backgroundTint="@color/blue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ru.kirill.unscramblewords.customviews.VisibilityButton
+        android:id="@+id/skipButton"
+        android:text="@string/skip"
+        android:backgroundTint="@color/blue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>

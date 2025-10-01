@@ -1,4 +1,6 @@
-package ru.kirill.unscramblewords
+package ru.kirill.unscramblewords.fragments.game
+
+import ru.kirill.unscramblewords.fragments.game.GameRepository
 
 class GameViewModel(private val repository: GameRepository) {
     fun next(): GameUiState {

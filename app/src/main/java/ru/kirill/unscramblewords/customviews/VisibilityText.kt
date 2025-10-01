@@ -1,10 +1,11 @@
-package ru.kirill.unscramblewords
+package ru.kirill.unscramblewords.customviews
 
 import android.content.Context
 import android.os.Parcelable
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatTextView
 
-class VisibilityText : androidx.appcompat.widget.AppCompatTextView, UpdateVisibility {
+class VisibilityText : AppCompatTextView, UpdateVisibility {
     private lateinit var state: VisibilityTextState
 
     constructor(context: Context) : super(context)

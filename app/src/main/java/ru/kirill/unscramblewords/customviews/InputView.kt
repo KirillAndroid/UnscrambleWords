@@ -1,4 +1,4 @@
-package ru.kirill.unscramblewords
+package ru.kirill.unscramblewords.customviews
 
 import android.content.Context
 import android.os.Parcelable
@@ -6,11 +6,12 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import ru.kirill.unscramblewords.databinding.InputBinding
 
 class InputView : FrameLayout, UpdateInput {
     private lateinit var state: InputViewState
     public val binding =
-        ru.kirill.unscramblewords.databinding.InputBinding.inflate(LayoutInflater.from(context),
+        InputBinding.inflate(LayoutInflater.from(context),
             this,
             true)
 

@@ -1,4 +1,8 @@
-package ru.kirill.unscramblewords
+package ru.kirill.unscramblewords.fragments.game
+
+import ru.kirill.unscramblewords.IntCache
+import ru.kirill.unscramblewords.StringCache
+import ru.kirill.unscramblewords.UnscrambleAndAnswer
 
 interface GameRepository {
 
@@ -11,16 +15,17 @@ interface GameRepository {
 
     class Base(val currentIndex: IntCache,
                val currentInput: StringCache,
-               private val words: List<UnscrambleAndAnswer> = listOf<UnscrambleAndAnswer>(UnscrambleAndAnswer(
-        unscrambleWord = "htacw",
-        answer = "watch"
-    ), UnscrambleAndAnswer(
-        unscrambleWord = "olhel",
-        answer = "hello"
-    ), UnscrambleAndAnswer(
-        unscrambleWord = "321",
-        answer = "123"
-    )
+               private val words: List<UnscrambleAndAnswer> = listOf<UnscrambleAndAnswer>(
+                   UnscrambleAndAnswer(
+                       unscrambleWord = "htacw",
+                       answer = "watch"
+                   ), UnscrambleAndAnswer(
+                       unscrambleWord = "olhel",
+                       answer = "hello"
+                   ), UnscrambleAndAnswer(
+                       unscrambleWord = "321",
+                       answer = "123"
+                   )
     )) : GameRepository {
 
 

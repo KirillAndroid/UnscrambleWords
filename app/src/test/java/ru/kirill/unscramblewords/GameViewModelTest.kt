@@ -3,6 +3,9 @@ package ru.kirill.unscramblewords
 import org.junit.Assert.*;
 import org.junit.Before
 import org.junit.Test
+import ru.kirill.unscramblewords.fragments.game.GameRepository
+import ru.kirill.unscramblewords.fragments.game.GameUiState
+import ru.kirill.unscramblewords.fragments.game.GameViewModel
 
 class GameViewModelTest {
     private lateinit var viewModel: GameViewModel

@@ -112,4 +112,8 @@ class GamePage(
         nextButtonUi.assertNotVisible()
         skipButtonUi.assertVisible()
     }
+
+    fun assertNotVisible() {
+        inputUi.assertDoesNotExists()
+    }
 }
