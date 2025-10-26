@@ -8,6 +8,7 @@ import ru.kirill.unscramblewords.customviews.VisibilityButton
 import ru.kirill.unscramblewords.customviews.VisibilityButtonState
 import ru.kirill.unscramblewords.customviews.VisibilityText
 import ru.kirill.unscramblewords.customviews.VisibilityTextState
+import ru.kirill.unscramblewords.fragments.stats.NavigateToStats
 import java.io.Serializable
 
 interface GameUiState : Serializable {
@@ -19,7 +20,9 @@ interface GameUiState : Serializable {
         checkButton: VisibilityButton,
         nextButton: VisibilityButton,
         skipButton: VisibilityButton
-    )
+    ) = Unit
+
+    fun navigate(navigate: NavigateToStats) = Unit
 
     data class Initial(val unscrambleWordText: String, val userInput: String = "") : GameUiState {
         override fun update(inputTextView: InputView,
@@ -130,15 +133,13 @@ interface GameUiState : Serializable {
     }
 
     object Empty : GameUiState {
-        override fun update(
-            inputTextView: InputView,
-            failTextView: VisibilityText,
-            correctTextView: VisibilityText,
-            unscrambleWord: UnscrambleTextView,
-            checkButton: VisibilityButton,
-            nextButton: VisibilityButton,
-            skipButton: VisibilityButton
-        ) = Unit
+
+    }
+
+    object Finish : GameUiState {
+        override fun navigate(navigate: NavigateToStats) {
+            navigate.navigateToStats()
+        }
     }
 
 }

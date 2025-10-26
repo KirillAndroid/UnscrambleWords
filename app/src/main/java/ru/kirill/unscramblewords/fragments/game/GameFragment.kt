@@ -59,11 +59,7 @@ class GameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = (requireActivity().application as UnscrambleWordsApp).gameViewModel
-//        viewModel = (application as UnscrambleWordsApp).gameViewModel
-//        val viewModel: GameViewModel = GameViewModel(GameRepository.Base())
-
-        binding.nextButton.setOnClickListener {
-            uiState = viewModel.next()
+        val update: () -> Unit = {
             uiState.update(
                 inputTextView = binding.inputView,
                 failTextView = binding.failTextView,
@@ -72,29 +68,20 @@ class GameFragment : Fragment() {
                 checkButton = binding.checkButton,
                 nextButton = binding.nextButton,
                 skipButton = binding.skipButton)
-            (requireActivity() as NavigateToStats).navigateToStats() //todo
+        }
+        binding.nextButton.setOnClickListener {
+            uiState = viewModel.next()
+            update.invoke()
+            uiState.navigate(requireActivity() as NavigateToStats)
         }
         binding.skipButton.setOnClickListener {
             uiState = viewModel.skip()
-            uiState.update(
-                inputTextView = binding.inputView,
-                failTextView = binding.failTextView,
-                correctTextView = binding.correctTextView,
-                unscrambleWord = binding.unscrambleWordTextView,
-                checkButton = binding.checkButton,
-                nextButton = binding.nextButton,
-                skipButton = binding.skipButton)
+            update.invoke()
+            uiState.navigate(requireActivity() as NavigateToStats)
         }
         binding.checkButton.setOnClickListener {
             uiState = viewModel.check(text = binding.inputView.binding.textInputEditText.text.toString())
-            uiState.update(
-                inputTextView = binding.inputView,
-                failTextView = binding.failTextView,
-                correctTextView = binding.correctTextView,
-                unscrambleWord = binding.unscrambleWordTextView,
-                checkButton = binding.checkButton,
-                nextButton = binding.nextButton,
-                skipButton = binding.skipButton)
+            update.invoke()
         }
 
         uiState = if (savedInstanceState == null) {
@@ -102,14 +89,7 @@ class GameFragment : Fragment() {
         } else {
             GameUiState.Empty
         }
-        uiState.update(
-            inputTextView = binding.inputView,
-            failTextView = binding.failTextView,
-            correctTextView = binding.correctTextView,
-            unscrambleWord = binding.unscrambleWordTextView,
-            checkButton = binding.checkButton,
-            nextButton = binding.nextButton,
-            skipButton = binding.skipButton)
+        update.invoke()
     }
 
 

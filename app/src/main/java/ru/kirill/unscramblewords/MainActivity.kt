@@ -16,19 +16,17 @@ class MainActivity : AppCompatActivity(), Navigable {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        if (savedInstanceState == null) navigateToGame()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.container)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        if (savedInstanceState == null) navigateToGame()
     }
 
     override fun navigate(screen: Screen) {
         screen.show(R.id.container, supportFragmentManager)
     }
-
 }
 
 interface Navigable : NavigateToGame, NavigateToStats {
@@ -41,6 +39,5 @@ interface Navigable : NavigateToGame, NavigateToStats {
     override fun navigateToStats() {
         navigate(StatsScreen)
     }
-
 }
 

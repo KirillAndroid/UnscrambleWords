@@ -13,6 +13,10 @@ interface GameRepository {
 
     fun saveCurrentUserInput(newValue: String)
 
+    fun isLastQuestion(): Boolean
+
+    fun resetIndex()
+
     class Base(val currentIndex: IntCache,
                val currentInput: StringCache,
                private val words: List<UnscrambleAndAnswer> = listOf<UnscrambleAndAnswer>(
@@ -32,9 +36,9 @@ interface GameRepository {
         override fun getCurrentWord() = words[currentIndex.read(0)]
 
         override fun getNextWord(): UnscrambleAndAnswer {
-            val i = (currentIndex.read(0) + 1) % words.size
-            currentIndex.save(i)
-            return words[i]
+            val newValue = currentIndex.read(0) + 1
+            currentIndex.save(newValue)
+            return words[newValue]
         }
 
         override fun getCurrentUserInput(): String {
@@ -43,6 +47,14 @@ interface GameRepository {
 
         override fun saveCurrentUserInput(newValue: String) {
             currentInput.save(newValue)
+        }
+
+        override fun isLastQuestion() : Boolean {
+            return currentIndex.read(0) == words.size - 1
+        }
+
+        override fun resetIndex() {
+            currentIndex.save(0)
         }
 
     }

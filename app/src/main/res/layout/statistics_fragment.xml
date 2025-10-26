@@ -6,7 +6,7 @@
     android:id="@+id/game_over_container"
     android:layout_height="match_parent">
 
-    <ru.kirill.unscramblewords.customviews.UnscrambleTextView
+    <ru.kirill.unscramblewords.customviews.StatsTextView
         android:layout_width="match_parent"
         android:id="@+id/statistics"
         android:layout_gravity="center"
@@ -14,9 +14,7 @@
         tools:text="Statistics: \nCorrect = $correct, \nIncorrect = $incorrect"
         android:textSize="24sp"
         android:textColor="@color/white"
-        android:layout_height="wrap_content">
-
-    </ru.kirill.unscramblewords.customviews.UnscrambleTextView>
+        android:layout_height="wrap_content"/>
 
     <ru.kirill.unscramblewords.customviews.VisibilityButton
         android:id="@+id/newGameButton"

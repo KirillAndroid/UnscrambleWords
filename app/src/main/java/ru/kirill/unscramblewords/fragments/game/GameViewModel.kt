@@ -1,22 +1,36 @@
 package ru.kirill.unscramblewords.fragments.game
 
 import ru.kirill.unscramblewords.fragments.game.GameRepository
+import ru.kirill.unscramblewords.fragments.stats.StatsRepository
 
-class GameViewModel(private val repository: GameRepository) {
+class GameViewModel(private val repository: GameRepository, private val statsRepository: StatsRepository) {
     fun next(): GameUiState {
+        if (repository.isLastQuestion()) {
+            repository.resetIndex()
+            return GameUiState.Finish
+        }
         return GameUiState.Initial(repository.getNextWord().unscrambleWord, "")
     }
 
     fun skip(): GameUiState {
+        if (repository.isLastQuestion()) {
+            repository.resetIndex()
+            statsRepository.saveIncorrectAnswer()
+            return GameUiState.Finish
+        }
+        statsRepository.saveIncorrectAnswer()
         return GameUiState.Initial(repository.getNextWord().unscrambleWord, "")
     }
 
     fun check(text: String): GameUiState {
         val unscrambleWord = repository.getCurrentWord()
-        if (unscrambleWord.answer == text)
+        if (unscrambleWord.answer == text){
+            statsRepository.saveCorrectAnswer()
             return GameUiState.Correct( unscrambleWord.answer, true, false, false)
-        else
+        } else {
+            statsRepository.saveIncorrectAnswer()
             return GameUiState.Incorrect( unscrambleWord.answer, false, true, true)
+        }
     }
 
     fun handleUserInput(text: String): GameUiState {
@@ -29,6 +43,7 @@ class GameViewModel(private val repository: GameRepository) {
     }
 
     fun init(): GameUiState {
+        statsRepository.resetAnswers()
         return GameUiState.Initial(repository.getCurrentWord().unscrambleWord, repository.getCurrentUserInput())
     }
 
