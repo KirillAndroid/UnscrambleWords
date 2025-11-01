@@ -1,6 +1,8 @@
 package ru.kirill.unscramblewords.fragments.stats
 
-class StatsViewModel(private val repository: StatsRepository) {
+import ru.kirill.unscramblewords.di.MyViewModel
+
+class StatsViewModel(private val repository: StatsRepository) : MyViewModel {
 
     fun getStatsUiState(): StatsUiState {
         val (correct, incorrect) = repository.getAnswers()

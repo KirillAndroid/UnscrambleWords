@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import ru.kirill.unscramblewords.di.ProvideViewModel
 import ru.kirill.unscramblewords.fragments.game.NavigateToGame
-import ru.kirill.unscramblewords.R
-import ru.kirill.unscramblewords.UnscrambleWordsApp
-import ru.kirill.unscramblewords.customviews.VisibilityButtonState
 import ru.kirill.unscramblewords.databinding.StatisticsFragmentBinding
 
 class StatsFragment : Fragment() {
@@ -26,7 +24,7 @@ class StatsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val statsViewModel = (requireActivity().application as UnscrambleWordsApp).statsViewModel
+        val statsViewModel = (requireActivity().application as ProvideViewModel).makeViewModel(StatsViewModel::class.java)
         val statsUiState = statsViewModel.getStatsUiState()
         statsUiState.update(binding.statistics, binding.newGameButton)
         binding.newGameButton.setOnClickListener {

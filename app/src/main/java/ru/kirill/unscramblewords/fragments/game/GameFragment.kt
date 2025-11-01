@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import ru.kirill.unscramblewords.di.ProvideViewModel
 import ru.kirill.unscramblewords.fragments.stats.NavigateToStats
-import ru.kirill.unscramblewords.UnscrambleWordsApp
 import ru.kirill.unscramblewords.databinding.GameFragmentBinding
 
 class GameFragment : Fragment() {
@@ -58,7 +58,7 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = (requireActivity().application as UnscrambleWordsApp).gameViewModel
+        viewModel = (requireActivity().application as ProvideViewModel).makeViewModel(GameViewModel::class.java)
         val update: () -> Unit = {
             uiState.update(
                 inputTextView = binding.inputView,

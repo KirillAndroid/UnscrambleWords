@@ -1,31 +1,36 @@
 package ru.kirill.unscramblewords
 
 import android.app.Application
-import ru.kirill.unscramblewords.fragments.game.GameRepository
-import ru.kirill.unscramblewords.fragments.game.GameViewModel
-import ru.kirill.unscramblewords.fragments.stats.StatsRepository
-import ru.kirill.unscramblewords.fragments.stats.StatsViewModel
+import ru.kirill.unscramblewords.di.ClearViewModel
+import ru.kirill.unscramblewords.di.Core
+import ru.kirill.unscramblewords.di.ManageViewModel
+import ru.kirill.unscramblewords.di.MyViewModel
+import ru.kirill.unscramblewords.di.ProvideViewModel
 
-class UnscrambleWordsApp : Application() {
-    lateinit var gameViewModel: GameViewModel
-    lateinit var statsViewModel: StatsViewModel
+class UnscrambleWordsApp : Application(), ProvideViewModel {
+
+    lateinit var factory: ManageViewModel
     override fun onCreate() {
         super.onCreate()
-        val sharedPreferences = getSharedPreferences("unscrambleWordsAppData", MODE_PRIVATE)
-        val statsRepository = StatsRepository.Base(
-            IntCache.Base(sharedPreferences, "correctAnswersCount"),
-            IntCache.Base(sharedPreferences, "incorrectAnswersCount")
+        val core = Core(
+            context = this,
+            clear = object : ClearViewModel {
+                override fun clear(claszz: Class<out MyViewModel>) {
+                    factory.clear(claszz)
+                }
+            }
         )
-        gameViewModel = GameViewModel(
-             GameRepository.Base(
-                currentIndex = IntCache.Base(sharedPreferences, "currentIndex"),
-                currentInput = StringCache.Base(sharedPreferences, "currentUserInput"),
-            ), statsRepository = statsRepository
+        val make = ProvideViewModel.Make(
+            core
         )
-
-        statsViewModel = StatsViewModel(
-            statsRepository
-        )
+        factory = ManageViewModel.Factory(make)
     }
 
+    override fun <T : MyViewModel> makeViewModel(claszz: Class<T>): T = factory.makeViewModel(claszz)
+
 }
+
+
+
+
+

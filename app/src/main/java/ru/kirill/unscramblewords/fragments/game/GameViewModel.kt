@@ -1,9 +1,9 @@
 package ru.kirill.unscramblewords.fragments.game
 
-import ru.kirill.unscramblewords.fragments.game.GameRepository
+import ru.kirill.unscramblewords.di.MyViewModel
 import ru.kirill.unscramblewords.fragments.stats.StatsRepository
 
-class GameViewModel(private val repository: GameRepository, private val statsRepository: StatsRepository) {
+class GameViewModel(private val repository: GameRepository, private val statsRepository: StatsRepository) : MyViewModel {
     fun next(): GameUiState {
         if (repository.isLastQuestion()) {
             repository.resetIndex()
@@ -48,3 +48,4 @@ class GameViewModel(private val repository: GameRepository, private val statsRep
     }
 
 }
+
